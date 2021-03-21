@@ -1,0 +1,22 @@
+---
+- hosts: webservers
+  become: true
+  become_user: root
+  tasks:
+  - name: Check for Python (added this for checking my understandin, I know this is not require for this project)
+    raw: test -e /usr/bin/python
+    changed_when: false
+    failed_when: false
+    register: check_python
+  - name: Install Python (Added for my udnerstanding not required for this project)
+    raw: yum -y install python
+    when: check_python.rc != 0
+  - name: install docker
+    yum: name=docker state=present
+  - name: start docker
+    service: name=docker state=started
+  - name: create DockerImage
+    command: docker build -t myimage:$BUILD_NUMBER .
+  - name: run Image
+    command: docker run -itd -P myimage:$BUILD_NUMBER
+
