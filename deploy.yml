@@ -3,6 +3,9 @@
   become: true
   become_user: root
   tasks:
+  - name: Install Python
+    command: yum -y install python
+    when: result.rc != 0
   - name: install docker
     yum: name=docker state=present
   - name: start docker
@@ -10,7 +13,4 @@
   - name: Pull DockerImage
     command: docker pull devopsedu/webapp:latest 
   - name: run Image
-    command: docker run -itd -P devopsedu/webapp:latest
-  - name: Install Python
-    command: yum -y install python 
-    when: check_python.rc != 0 
+    command: docker run -itd -P devopsedu/webapp:latest 
