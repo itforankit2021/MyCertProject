@@ -16,7 +16,7 @@
   - name: start docker
     service: name=docker state=started
   - name: create DockerImage
-    command: docker build -t myimage:$BUILD_NUMBER .
+    command: docker build -t myimage:latest .
   - name: run Image
-    command: docker run -itd -P myimage:$BUILD_NUMBER
+    command: docker run -itd -P myimage:$latest
 
