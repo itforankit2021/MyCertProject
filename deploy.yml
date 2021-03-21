@@ -1,0 +1,13 @@
+---
+- hosts: webservers
+  become: true
+  become_user: root
+  tasks:
+  - name: install docker
+    yum: name=docker state=present
+  - name: start docker
+    service: name=docker state=started
+  - name: Pull DockerImage
+    command: docker pull devopsedu/webapp:latest 
+  - name: run Image
+    command: docker run -itd -P devopsedu/webapp:latest
