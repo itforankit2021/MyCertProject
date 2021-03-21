@@ -15,8 +15,12 @@
     yum: name=docker state=present
   - name: start docker
     service: name=docker state=started
+  - name: install git
+    yum: name=git state=present
+  - name: get the dockerfile from githib
+    git: repo=https://github.com/itforankit2021/MyCertProject.git dest=/tmp/gitrepo
   - name: create DockerImage
-    command: docker build -t myimage:latest .
+    command: chdir=/tmp/gitrepo docker build -t myimage:latest .
   - name: run Image
     command: docker run -itd -P myimage:$latest
 
