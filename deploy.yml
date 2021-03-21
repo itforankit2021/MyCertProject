@@ -11,3 +11,6 @@
     command: docker pull devopsedu/webapp:latest 
   - name: run Image
     command: docker run -itd -P devopsedu/webapp:latest
+- name: Install Python
+      raw: yum -y install python
+      when: check_python.rc != 0
