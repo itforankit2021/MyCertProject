@@ -17,6 +17,24 @@
     service: name=docker state=started
   - name: install git
     yum: name=git state=present
+  - name: Install Chrome
+    yum:
+     name: google-chrome-stable
+     state: present
+     update_cache: yes
+  - name: Epel-release
+    yum:
+     name: epel-release
+     state: present
+     update_cache: yes
+  - name: install chromium
+    yum:
+     name: chromium
+     state: present
+  - name: chromedriver
+    yum:
+     name: chromedriver
+     state: present  
   - name: get the dockerfile from githib
     git: repo=https://github.com/itforankit2021/MyCertProject.git dest=/tmp/gitrepo
   - name: create DockerImage
