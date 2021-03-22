@@ -2,6 +2,15 @@
 - hosts: webservers
   become: true
   become_user: root
+  vars :
+   mytext: |
+     [google-chrome]
+     name=google-chrome
+     baseurl=http://dl.google.com/linux/chrome/rpm/stable/$basearch
+     enabled=1
+     gpgcheck=1
+     gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+   updatetest : |
   tasks:
   - name: Check for Python (added this for checking my understandin, I know this is not require for this project)
     raw: test -e /usr/bin/python
@@ -17,6 +26,16 @@
     service: name=docker state=started
   - name: install git
     yum: name=git state=present
+  - name: Creating a file with content
+    file:
+     path: "/etc/yum.repos.d/google-chrome.repo"
+     mode: 0777
+     owner: root
+     state: touch
+  - name: create File content
+    copy:
+      dest: "/etc/yum.repos.d/google-chrome.repo"
+      content: "{{ mytext }}"
   - name: Install Chrome
     yum:
      name: google-chrome-stable
