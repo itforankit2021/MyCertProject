@@ -20,7 +20,7 @@
   - name: get the dockerfile from githib
     git: repo=https://github.com/itforankit2021/MyCertProject.git dest=/tmp/gitrepo
   - name: create DockerImage
-    command: chdir=/tmp/gitrepo docker build -t myimage:latest .
+    command: chdir=/tmp/gitrepo/projCert docker build -t myimage:latest .
   - name: run Image
     command: docker run -itd -P myimage:$latest
 
