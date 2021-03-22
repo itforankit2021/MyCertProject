@@ -41,11 +41,6 @@
      name: google-chrome-stable
      state: present
      update_cache: yes
-  - name: Epel-release
-    yum:
-     name: epel-release
-     state: present
-     update_cache: yes
   - name: install chromium
     yum:
      name: chromium
